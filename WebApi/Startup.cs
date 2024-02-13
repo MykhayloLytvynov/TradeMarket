@@ -49,10 +49,7 @@ namespace WebApi
             });
 
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
-            });
+            services.AddSwaggerGen();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -61,7 +58,10 @@ namespace WebApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Trade market");
+                });
             }
 
             app.UseCors("AllowSpecificOrigins");
